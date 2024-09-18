@@ -1,6 +1,12 @@
+const foo = {
+  foo: {
+    word: "yes"
+  }
+};
+
 export const handler = (req: any, res: any) => {
   const func = req.params[0];
-  let r = 'wrong endpoint';
+  let r: any  = {};
 
   if (func === 'me') {
     r = me();
@@ -11,9 +17,14 @@ export const handler = (req: any, res: any) => {
 };
 
 const me = () => {
-  return 'some data from "me" endpoint';
+  return foo;
 };
 
 const you = () => {
   return 'some data from "you" endpoint';
 };
+
+
+export const fooApi = (req: any, res: any) => {
+  res.status(200).json(foo);
+}

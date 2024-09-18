@@ -11,7 +11,7 @@ import { StateService } from './state.service';
 })
 export class RestService {
 
-  data!: string;
+  data!: any;
   baseURL!: string;
   isServer: Boolean;
 
@@ -53,6 +53,17 @@ export class RestService {
         this.data = await this.fetchData();
       }
     }
+  }
+
+  public async getAnother(){
+    return (
+      await firstValueFrom<any>(this.http.get(this.document.location.origin + '/foo/world', {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        responseType: 'json'
+      }))
+    );
   }
 
   private async fetchData(): Promise<any> {

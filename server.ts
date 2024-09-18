@@ -7,7 +7,7 @@ import { join } from 'path';
 import { AppServerModule } from './src/main.server';
 import { APP_BASE_HREF } from '@angular/common';
 import { existsSync } from 'fs';
-import { handler } from 'handler';
+import { handler, fooApi } from 'handler';
 
 // The Express app is exported so that it can be used by serverless Functions.
 export function app(): express.Express {
@@ -24,7 +24,9 @@ export function app(): express.Express {
   server.set('views', distFolder);
 
   // Example Express Rest API endpoints
-  server.get('/api/**', handler);
+  server.get('/api/**', handler)
+
+  server.get("/foo/world", fooApi);
 
   // Serve static files from /browser
   server.get('*.*', express.static(distFolder, {
